@@ -15,28 +15,40 @@ exports.new = function(req, res){
   });
 };
 
+exports.create = function(req, res){
+  db.models.Lista.create(
+    {
+      nombre: req.body.nombre,
+      descripcion: req.body.descripcion
+    },
+    function(err, lista){
+      res.redirect('/listas/' + lista.id);
+    }
+  );
+};
+
 exports.show = function(req, res){
   db.models.Lista.find(
     req.params.id
     ,
     function(err, lista){
-      res.render('listas/show', {
-        title: 'Detalle de lista',
-        lista: lista
+      lista.tareas(function(err, tareas){
+        console.log(tareas);
+        res.render('listas/show', {
+          title: 'Detalle de lista',
+          lista: lista,
+          tareas: tareas
+        });
       });
     }
   );
 };
 
-exports.create = function(req, res){
-  db.models.Lista.create(
-    {
-      nombre: req.body.nombre,
-      descripcion: req.body.descripcion,
-      creacion: Date.now()
-    },
+exports.info = function(req, res){
+  db.models.Lista.find(
+    req.params.id
+    ,
     function(err, lista){
-      console.log(lista.descripcion);
       res.render('listas/show', {
         title: 'Detalle de lista',
         lista: lista

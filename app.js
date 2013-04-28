@@ -6,6 +6,7 @@
 var express = require('express')
   , routes = require('./routes')
   , lista = require('./routes/lista')
+  , tarea = require('./routes/tarea')
   , http = require('http')
   , path = require('path');
 
@@ -31,10 +32,15 @@ if ('development' == app.get('env')) {
 
 // rutas
 app.get('/', routes.index);
+// listas
 app.get('/listas', lista.index);
 app.get('/listas/new', lista.new);
-app.get('/listas/:id', lista.show);
 app.post('/listas/new', lista.create);
+app.get('/listas/:id', lista.show);
+app.get('/listas/:id/info', lista.info);
+// tareas
+app.get('/listas/:id/tareas/new', tarea.new);
+app.post('/listas/:id/tareas/new', tarea.create);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
