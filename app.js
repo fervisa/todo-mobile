@@ -38,12 +38,15 @@ app.get('/listas/new', lista.new);
 app.post('/listas/new', lista.create);
 app.get('/listas/:id', lista.show);
 app.get('/listas/:id/finalizadas', lista.finalizadas);
-app.get('/listas/:id/info', lista.info);
+app.get('/listas/:id/delete', lista.delete);
+app.get('/listas/:id/destroy', lista.destroy);
 // tareas
 app.get('/listas/:id_lista/tareas/new', tarea.new);
+app.post('/listas/:id_lista/tareas/new', tarea.create);
 app.get('/listas/:id_lista/tareas/:id/finalizar', tarea.finalizar);
 app.get('/listas/:id_lista/tareas/:id/reactivar', tarea.reactivar);
-app.post('/listas/:id_lista/tareas/new', tarea.create);
+app.get('/listas/:id_lista/tareas/:id/edit', tarea.edit);
+app.post('/listas/:id_lista/tareas/:id/edit', tarea.update);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

@@ -22,6 +22,15 @@ var Tarea = schema.define('Tarea', {
 Lista.hasMany(Tarea);
 Tarea.belongsTo(Lista);
 
+Tarea.beforeUpdate = function(next, data){
+  if (data.finalizada == '1')
+    data.finalizacion = new Date;
+  else
+    data.finalizacion = null;
+  console.log(data);
+  next();
+}
+
 // Esta línea BORRA TODA LA BASE DE DATOS y la recrea
 // schema.automigrate();
 

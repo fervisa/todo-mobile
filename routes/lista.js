@@ -44,6 +44,31 @@ exports.show = function(req, res){
   );
 };
 
+exports.delete = function(req, res){
+  db.models.Lista.find(
+    req.params.id
+    ,
+    function(err, lista){
+      res.render('listas/delete', {
+        title: 'Eliminar lista',
+        lista: lista,
+      });
+    }
+  );
+};
+
+exports.destroy = function(req, res){
+  db.models.Lista.find(
+    req.params.id
+    ,
+    function(err, lista){
+      lista.destroy(function(err){
+        res.redirect('/listas');
+      });
+    }
+  );
+};
+
 exports.finalizadas = function(req, res){
   db.models.Lista.find(
     req.params.id
@@ -56,19 +81,6 @@ exports.finalizadas = function(req, res){
           lista: lista,
           tareas: tareas
         });
-      });
-    }
-  );
-};
-
-exports.info = function(req, res){
-  db.models.Lista.find(
-    req.params.id
-    ,
-    function(err, lista){
-      res.render('listas/show', {
-        title: 'Detalle de lista',
-        lista: lista
       });
     }
   );

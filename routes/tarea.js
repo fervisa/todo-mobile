@@ -27,6 +27,40 @@ exports.create = function(req, res){
   );
 };
 
+exports.edit = function(req, res){
+  db.models.Tarea.find(
+    req.params.id
+    ,
+    function(err, tarea){
+      res.render('tareas/edit', {
+        title: 'Editar tarea',
+        tarea: tarea
+      });
+    }
+  );
+};
+
+exports.update = function(req, res){
+  db.models.Tarea.find(
+    req.params.id
+    ,
+    function(err, tarea){
+      console.log(req.body);
+      tarea.updateAttributes(
+        {
+          nombre: req.body.nombre,
+          descripcion: req.body.descripcion,
+          finalizada: req.body.finalizada
+        },
+        function(err, tarea){
+          console.log(tarea);
+          res.redirect('/listas/' + tarea.listaId);
+        }
+      );
+    }
+  );
+};
+
 exports.finalizar = function(req, res){
   db.models.Tarea.find(
     req.params.id
@@ -47,7 +81,7 @@ exports.reactivar = function(req, res){
     function(err, tarea){
       tarea.updateAttributes({ finalizada: '0', finalizacion: new Date() }, function(err, tarea){
         console.log(tarea);
-        res.redirect('/listas/' + tarea.listaId);
+        res.redirect('/listas/' + tarea.listaId + '/finalizadas');
       });
     }
   );
