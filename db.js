@@ -14,7 +14,7 @@ var Tarea = schema.define('Tarea', {
   descripcion: String,
   creacion: { type: Date, default: function() { return new Date;} },
   finalizacion: Date,
-  finalizado: { type: Boolean, default: false }
+  finalizada: String
 }, {
   resPath: '/listas/' + 'listaId' + '/tareas'
 });
@@ -22,6 +22,7 @@ var Tarea = schema.define('Tarea', {
 Lista.hasMany(Tarea);
 Tarea.belongsTo(Lista);
 
+// Esta línea BORRA TODA LA BASE DE DATOS y la recrea
 // schema.automigrate();
 
 schema.isActual(function(err, actual) {

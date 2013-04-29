@@ -32,9 +32,26 @@ exports.show = function(req, res){
     req.params.id
     ,
     function(err, lista){
-      lista.tareas(function(err, tareas){
+      db.models.Tarea.all({where: { listaId: lista.id, finalizada: '0' } }, function(err, tareas){
         console.log(tareas);
         res.render('listas/show', {
+          title: 'Detalle de lista',
+          lista: lista,
+          tareas: tareas
+        });
+      });
+    }
+  );
+};
+
+exports.finalizadas = function(req, res){
+  db.models.Lista.find(
+    req.params.id
+    ,
+    function(err, lista){
+      db.models.Tarea.all({ where: { listaId: lista.id, finalizada: '1' } }, function(err, tareas){
+        console.log(tareas);
+        res.render('listas/finalizadas', {
           title: 'Detalle de lista',
           lista: lista,
           tareas: tareas
