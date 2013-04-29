@@ -9,42 +9,5 @@
     <script src="/javascripts/jquery.mobile-1.3.1.js"></script>
   </head>
   <body>
-    <div data-role="page">
-      <div data-theme="a" data-role="header">
-        <h3><%= title %></h3>
-        <a data-role="button" href="/" data-icon="home" data-iconpos="left" class="ui-btn-left">
-            Inicio
-        </a>
-        <a data-role="button" href="/listas/new" data-icon="plus" data-iconpos="right" data-transition="slide" class="ui-btn-right">
-            Crear
-        </a>
-      </div>
-      <div data-role="content">
-        <% if (listas.length == 0) {%>
-          <h3>No hay listas creadas</h3>
-          <a data-role="button" data-transition="slide" href="/listas/new" data-icon="plus" data-iconpos="left">
-            Crear nueva lista
-          </a>
-        <% } else { %>
-          <ul data-role="listview" data-divider-theme="b" data-inset="true">
-          <li data-role="list-divider" role="heading">
-              Mis listas
-          </li>
-          <% for (var i=0; i < listas.length; i++) { %>
-            <li data-theme="c">
-              <a href="listas/<%= listas[i].id %>" data-transition="slide">
-                  <%= listas[i].nombre %>
-              </a>
-            </li>
-          <% } %>
-          </ul>
-        <% } %>
-      </div>
-      <div data-theme="a" data-role="footer" data-position="fixed">
-        <h3>
-          VII simposium de software libre
-        </h3>
-      </div>
-    </div>
   </body>
 </html>
